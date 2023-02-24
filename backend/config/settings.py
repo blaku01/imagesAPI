@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "oauth2_provider",
     "corsheaders",
     "django_extensions",
+    "users",
 ]
 
 MIDDLEWARE = [
