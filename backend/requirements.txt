@@ -8,3 +8,4 @@ factory-boy
 django-extensions
 Pillow
 django-storages
+coverage

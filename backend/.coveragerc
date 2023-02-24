@@ -1,0 +1,9 @@
+[run]
+source=users/, 
+omit=
+    venv
+    manage.py
+    config/*
+    */migrations/*
+    */tests/*
+    */__init__.py
