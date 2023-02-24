@@ -1,3 +1,1 @@
-from django.shortcuts import render
-
-# Create your views here.
+# assuming that users are managed using the admin panel.

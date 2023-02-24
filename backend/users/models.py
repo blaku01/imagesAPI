@@ -8,7 +8,7 @@ from django.utils import timezone
 
 
 class AccountTier(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     thumbnail_sizes = ArrayField(
         models.IntegerField()
     )  # using ManyToMany field could also be an option.
@@ -20,7 +20,7 @@ class AccountTier(models.Model):
         return self.name
 
 
-class CustomUserManager(BaseUserManager):
+class ImagesUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError("The Email field must be set")
@@ -43,12 +43,12 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class CustomUser(AbstractUser):
+class ImagesUser(AbstractUser):
     email = models.EmailField(unique=True)
     account_tier = models.ForeignKey(
-        AccountTier, to_field="name", default="Basic", on_delete=models.PROTECT
+        AccountTier, on_delete=models.PROTECT
     )
-    objects = CustomUserManager()
+    objects = ImagesUserManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 

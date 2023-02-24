@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import AccountTier, CustomUser
+from .models import AccountTier, ImagesUser
 
 # Register your models here.
 
-class CustomUserAdmin(UserAdmin):
+class ImagesUserAdmin(UserAdmin):
     list_display = ('email', 'username', 'is_staff')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email', 'username', 'first_name', 'last_name')
@@ -19,4 +19,4 @@ class CustomUserAdmin(UserAdmin):
     )
 
 admin.site.register(AccountTier)
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(ImagesUser, ImagesUserAdmin)

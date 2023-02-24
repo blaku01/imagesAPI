@@ -20,7 +20,7 @@ class AccountTierFactory(factory.django.DjangoModelFactory):
     created_at = factory.LazyFunction(timezone.now)
 
 
-class CustomUserFactory(factory.django.DjangoModelFactory):
+class ImagesUserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
