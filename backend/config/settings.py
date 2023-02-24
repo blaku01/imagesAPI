@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "oauth2_provider",
     "corsheaders",
     "django_extensions",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -89,6 +90,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "users.ImagesUser"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
