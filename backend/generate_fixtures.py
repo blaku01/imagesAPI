@@ -9,12 +9,13 @@ from users.factories import AccountTierFactory, ImagesUserFactory
 
 from django.core.management import call_command
 
+NUM_USERS = 10
+
 # call Django management commands to reset database and run migrations
 call_command("reset_db", "--noinput", "--close-sessions")
 call_command("migrate")
 
 # create account tiers
-
 basic_tier = AccountTierFactory(
     name="Basic",
     thumbnail_sizes=[200],
@@ -45,3 +46,6 @@ staff_user = ImagesUserFactory(
     is_superuser=True,
     password="admin",
 )
+
+for i in range(NUM_USERS):
+    ImagesUserFactory()
