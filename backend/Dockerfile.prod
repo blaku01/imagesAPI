@@ -5,6 +5,7 @@ COPY . .
 RUN adduser --system --group --shell /bin/sh auser \
  && mkdir /home/auser/bin
 RUN chmod +x ./start.sh
+RUN chmod -R 775 /media
 USER auser
 EXPOSE 8000
 RUN pip install -r requirements.txt
