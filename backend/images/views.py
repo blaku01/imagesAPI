@@ -10,10 +10,11 @@ from images.serializers import (
 )
 from PIL import Image as PilImage
 from rest_framework import permissions, viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from users.models import AccountTier
-from rest_framework.decorators import action
+
 from .models import Image
 
 
@@ -103,4 +104,3 @@ class ImageViewSet(viewsets.ModelViewSet):
         serialized_data = serializer(data=response)
         serialized_data.is_valid(raise_exception=True)
         return Response(serialized_data.data)
-

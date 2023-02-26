@@ -3,7 +3,6 @@ django-cors-headers
 djangorestframework
 markdown
 psycopg2
-django-oauth-toolkit
 factory-boy
 django-extensions
 Pillow
