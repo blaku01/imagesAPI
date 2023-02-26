@@ -31,6 +31,7 @@ for current_argument, current_value in arguments:
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 django.setup()
 from django.core.management import call_command
+
 from users.tests.factories import AccountTierFactory, ImagesUserFactory
 
 # call Django management commands to reset database and run migrations

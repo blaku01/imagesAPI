@@ -6,9 +6,9 @@ ImagesAPI is a RESTful API that allows users to upload and manage their images. 
 ### quick note about my choices
 * I decided to resize images on go, because resizing images is not very computationally intensive. I also used PilImage.NEAREST - the quickest PIL resizing algorithm (drawback - returns worse quality images) - i'm assuming, that thumbnail will just be a preview for original image.
 * in production I'd use some form of caching (either using caching service e.g Cloudflare, or use own caching backend), to cache most-accessed images (depends on client target)
-*  in production I'd store images at cloud object storage e.g Amazon S3 
-*  README was supposed to be short, but that was a perfect opportunity to practice creating docs
-
+* in production I'd store images at cloud object storage e.g Amazon S3 or self-hosted storage
+* README was supposed to be short, but that was a perfect opportunity to practice creating docs
+* my next task would be to replace the default Django TokenAuthentication with Django REST Knox, because according to DRF documentation, Django REST Knox offers a more secure implementation that allows generating multiple tokens per user, as well as token expiration.
 # Running the Project
 
 ## Deployment information
