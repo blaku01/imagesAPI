@@ -33,10 +33,19 @@ class ImagesUserAdmin(UserAdmin):
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('username','email', 'account_tier', 'password1', 'password2'),
-        }),
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "username",
+                    "email",
+                    "account_tier",
+                    "password1",
+                    "password2",
+                ),
+            },
+        ),
     )
 
 
