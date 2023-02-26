@@ -10,3 +10,5 @@ Pillow
 django-storages
 coverage
 freezegun
+black
+isort
