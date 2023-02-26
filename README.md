@@ -43,14 +43,16 @@ current code coverage: 100%, however tests need to be expanded into more cases, 
 <br /><br />
 # API Endpoints
 
-| Endpoint                                     | Method | Description                               | Payload                                                 | Params                                          |
-| -------------------------------------------- | ------ | ----------------------------------------- | ------------------------------------------------------- | ----------------------------------------------- |
-| [/api/images/](#GET-/api/images/)            | GET    | List available images                     |                                                         | expiration_time:`int`                           |
-| [/api/images/\<pk\>/](#GET-/api/images/<pk>) | GET    | Get links to images with different sizes. |                                                         |                                                 |
-| [/api/images/](#POST-/api/images/)           | POST   | Create a new image.                       | {"name": `file name`, "file": `image file`}             |                                                 |
-| [/api/images/](#PUT-/api/images/<pk>/)       | PUT    | Update an existing image.                 | {"id": `id`, "name": `file name`, "file": `image file`} |                                                 |
-| [/api/images/](#DELETE-/api/images/<pk>/)    | DELETE | Delete an existing image.                 | {"id": `id`}                                            |                                                 |
-| [/api/view/\<pk\>/](#GET-/api/view/<pk>/)    | GET    | Show an image file                        |                                                         | height:`int`, expires_at:`int`, signature:`str` |
+| Endpoint                                                                                      | Method | Description                               | Payload                                                 | Params                                          |
+| --------------------------------------------------------------------------------------------- | ------ | ----------------------------------------- | ------------------------------------------------------- | ----------------------------------------------- |
+| [/api/images/](#GET-/api/images/)                                                             | GET    | List available images                     |                                                         | expiration_time:`int`                           |
+| [/api/images/\<pk\>/generate_image_variants/](#GET-/api/images/<pk>/generate_image_variants/) | GET    | Get links to images with different sizes. |                                                         |                                                 |
+| [/api/images/](#POST-/api/images/)                                                            | POST   | Create a new image.                       | {"name": `file name`, "file": `image file`}             |                                                 |
+| [/api/images/](#PUT-/api/images/<pk>/)                                                        | PUT    | Update an existing image.                 | {"id": `id`, "name": `file name`, "file": `image file`} |                                                 |
+| [/api/images/](#DELETE-/api/images/<pk>/)                                                     | DELETE | Delete an existing image.                 | {"id": `id`}                                            |                                                 |
+| [/api/images/\<pk\>/](#GET-/api/images/<pk>)                                                  | GET    | Show an image file                        |                                                         | height:`int`, expires_at:`int`, signature:`str` |
+
+
 
 <br />
 
@@ -69,10 +71,10 @@ This endpoint allows you to list available images, and get urls to these images 
 | ----------- | ---------------- | --------------------------------------------------------------------------------------- |
 | 200         | application/json | {"id":`id`, "name":`filename`, "url": `url for image generation`, "created_at": `time`} |
 | 400         | application/json | {"code":"400","error":"Bad Request"}                                                    |
-| 401         | application/json | {"code":"400","error":"Invalid Credentials, try again!"}                                |
+| 401         | application/json | {"code":"400","detail": "Authentication credentials were not provided."}                |
 
 
-## GET /api/images/\<pk\>/
+## GET /api/images/\<pk\>/generate_image_variants/
 
 This endpoint allows you to retrieve links to image thumbnails, and original image / expiring binary image based on AccountTier.
 
@@ -87,7 +89,8 @@ This endpoint allows you to retrieve links to image thumbnails, and original ima
 | ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 200         | application/json | {"thumbnail_urls": `Object with keys representing different image sizes eg.(size_200:url}) and values representing the corresponding thumbnail URL`.,<br> "original_image": `String representing the URL of the original image.`,<br> "expiring_binary_url": `String representing the URL of the expiring binary image.`} |
 | 400         | application/json | {"code":"400","error":"Bad Request"}                                                                                                                                                                                                                                                                                      |
-| 401         | application/json | {"code":"400","error":"Invalid Credentials, try again!"}                                                                                                                                                                                                                                                                  |
+| 401         | application/json | {"code":"400","detail": "Authentication credentials were not provided."}                                                                                                                                                                                                                                                  |
+| 404         | application/json | {"code":"404","detail":"Not found."}                                                                                                                                                                                                                                                                                      |
 
 
 ## POST /api/images/
@@ -105,7 +108,7 @@ This endpoint allows you to upload image.
 | ----------- | ---------------- | --------------------------------------------------------------------------------------- |
 | 201         | application/json | {"id":`id`, "name":`filename`, "url": `url for image generation`, "created_at": `time`} |
 | 400         | application/json | {"code":"400","error":"Bad Request"}                                                    |
-| 401         | application/json | {"code":"401","error":"Invalid Credentials, try again!"}                                |
+| 401         | application/json | {"code":"401","detail": "Authentication credentials were not provided."}                |
 
 ## PUT /api/images/\<pk\>/
 
@@ -122,7 +125,7 @@ This endpoint allows you to update an image.
 | ----------- | ---------------- | --------------------------------------------------------------------------------------- |
 | 201         | application/json | {"id":`id`, "name":`filename`, "url": `url for image generation`, "created_at": `time`} |
 | 400         | application/json | {"code":"400","error":"Bad Request"}                                                    |
-| 401         | application/json | {"code":"401","error":"Invalid Credentials, try again!"}                                |
+| 401         | application/json | {"code":"401","detail": "Authentication credentials were not provided."}                |
 | 404         | application/json | {"code":"404","detail":"Not found."}                                                    |
 
 ## DELETE /api/images/\<pk\>/
@@ -136,15 +139,15 @@ This endpoint allows you to remove uploaded image.
 - Params: None
 
 ### Response
-| Status code | content-type     | response                                                 |
-| ----------- | ---------------- | -------------------------------------------------------- |
-| 204         | application/json | {"code": "204", "detail": "No Content"}                  |
-| 400         | application/json | {"code":"400","error":"Bad Request"}                     |
-| 401         | application/json | {"code":"401","error":"Invalid Credentials, try again!"} |
-| 404         | application/json | {"code":"404","detail":"Not found."}                     |
+| Status code | content-type     | response                                                                 |
+| ----------- | ---------------- | ------------------------------------------------------------------------ |
+| 204         | application/json | {"code": "204", "detail": "No Content"}                                  |
+| 400         | application/json | {"code":"400","error":"Bad Request"}                                     |
+| 401         | application/json | {"code":"401","detail": "Authentication credentials were not provided."} |
+| 404         | application/json | {"code":"404","detail":"Not found."}                                     |
 
 
-## GET /api/view/\<pk\>/
+## GET /api/images/\<pk\>/
 
 This endpoint allows you to show formatted uploaded image.
 
@@ -155,10 +158,10 @@ This endpoint allows you to show formatted uploaded image.
 - Params: signature, height, expires_at
 
 ### Response
-| Status code | content-type         | response                                    |
-| ----------- | -------------------- | ------------------------------------------- |
-| 200         | image/\<img-format\> | image file                                  |
-| 400         | application/json     | {"error":"Bad Request"}                     |
-| 401         | application/json     | {"error":"Invalid Credentials, try again!"} |
-| 410         | application/json     | {"error":"Image expired."}                  |
+| Status code | content-type         | response                                                    |
+| ----------- | -------------------- | ----------------------------------------------------------- |
+| 200         | image/\<img-format\> | image file                                                  |
+| 400         | application/json     | {"error":"Bad Request"}                                     |
+| 401         | application/json     | {"detail": "Authentication credentials were not provided."} |
+| 410         | application/json     | {"error":"Image expired."}                                  |
 
