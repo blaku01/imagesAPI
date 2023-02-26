@@ -6,7 +6,7 @@ import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 django.setup()
 from django.core.management import call_command
-from users.factories import AccountTierFactory, ImagesUserFactory
+from users.tests.factories import AccountTierFactory, ImagesUserFactory
 
 NUM_USERS = 10
 
