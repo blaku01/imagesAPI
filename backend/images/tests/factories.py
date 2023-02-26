@@ -1,6 +1,4 @@
 import factory
-from django.core.files.base import ContentFile
-from django.core.files.images import ImageFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 from faker import Faker
