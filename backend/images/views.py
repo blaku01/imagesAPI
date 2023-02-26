@@ -3,22 +3,22 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
+from PIL import Image as PilImage
+from rest_framework import permissions, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 from images.serializers import (
     CreateImageSerializer,
     DetailImageSerializer,
     ListImageSerializer,
 )
-from PIL import Image as PilImage
-from rest_framework import permissions, viewsets
-from rest_framework.decorators import action
-from rest_framework.response import Response
 from users.models import AccountTier
 
 from .models import Image
 
 
 class ImageViewSet(viewsets.ModelViewSet):
-
     def get_queryset(self):
         queryset = Image.objects.filter(owner=self.request.user)
         return queryset
@@ -30,11 +30,12 @@ class ImageViewSet(viewsets.ModelViewSet):
             return DetailImageSerializer
         else:
             return CreateImageSerializer
-    
+
     def get_permissions(self):
         if self.action != "retrieve":
-            self.permission_classes =  [permissions.IsAuthenticated]
+            self.permission_classes = [permissions.IsAuthenticated]
         return super().get_permissions()
+
     def perform_create(self, serializer):
         return serializer.save(owner=self.request.user)
 

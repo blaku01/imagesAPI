@@ -2,6 +2,7 @@ import factory
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 from faker import Faker
+
 from users.tests.factories import ImagesUserFactory
 
 from ..models import Image
