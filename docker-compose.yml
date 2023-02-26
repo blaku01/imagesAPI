@@ -4,11 +4,11 @@ services:
     imagesapi:
         build:  
             context: backend
-            dockerfile: Dockerfile.prod
+            dockerfile: Dockerfile.local
         container_name: imagesapi-backend
         env_file:
             - environments/.local.env
-        # command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
         volumes:
             - ./backend:/usr/src/app
         ports:

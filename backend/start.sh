@@ -1,5 +1,5 @@
 #!/bin/bash
 
 
-python ./reset_db.py
+python ./generate_fixtures.py
 python ./manage.py runserver 0.0.0.0:8000
