@@ -9,3 +9,4 @@ django-extensions
 Pillow
 django-storages
 coverage
+freezegun

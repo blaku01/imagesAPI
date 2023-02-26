@@ -1,7 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
-from django.contrib.auth import get_user_model
-from users.factories import AccountTierFactory
+from users.tests.factories import AccountTierFactory
+
 User = get_user_model()
 
 
@@ -23,7 +24,9 @@ class ImagesUserModelTest(TestCase):
             original_file_link=True,
             expiring_link_enabled=True,
         )
-        user = get_user_model().objects.create_user(email="user@example.com", password="password", account_tier=account_tier)
+        user = get_user_model().objects.create_user(
+            email="user@example.com", password="password", account_tier=account_tier
+        )
         self.assertEqual(user.email, "user@example.com")
         self.assertTrue(user.check_password("password"))
         self.assertFalse(user.is_staff)
@@ -42,7 +45,7 @@ class ImagesUserModelTest(TestCase):
             account_tier=account_tier,
         )
         self.assertEqual(superuser.email, "superuser@example.com")
-        self.assertEqual(str(superuser), 'superuser@example.com')
+        self.assertEqual(str(superuser), "superuser@example.com")
         self.assertTrue(superuser.check_password("password"))
         self.assertTrue(superuser.is_staff)
         self.assertTrue(superuser.is_superuser)
@@ -50,4 +53,6 @@ class ImagesUserModelTest(TestCase):
         self.assertEqual(list(superuser.account_tier.thumbnail_sizes), [200, 400])
         self.assertTrue(superuser.account_tier.original_file_link)
         self.assertTrue(superuser.account_tier.expiring_link_enabled)
-        self.assertLess((timezone.now() - superuser.account_tier.created_at).total_seconds(), 1)
+        self.assertLess(
+            (timezone.now() - superuser.account_tier.created_at).total_seconds(), 1
+        )
