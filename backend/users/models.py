@@ -45,9 +45,7 @@ class ImagesUserManager(BaseUserManager):
 
 class ImagesUser(AbstractUser):
     email = models.EmailField(unique=True)
-    account_tier = models.ForeignKey(
-        AccountTier, on_delete=models.PROTECT
-    )
+    account_tier = models.ForeignKey(AccountTier, on_delete=models.PROTECT)
     objects = ImagesUserManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]

@@ -10,3 +10,8 @@ Pillow
 django-storages
 coverage
 freezegun
+black
+isort
+dj-database-url
+gunicorn
+whitenoise[brotli]

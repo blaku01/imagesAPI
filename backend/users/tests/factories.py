@@ -2,7 +2,7 @@ import factory
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
-from .models import AccountTier
+from ..models import AccountTier
 
 User = get_user_model()
 
@@ -24,6 +24,7 @@ class ImagesUserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
+    username = factory.Sequence(lambda n: f"user{n}")
     email = factory.Sequence(lambda n: f"user{n}@example.com")
     account_tier = factory.SubFactory(AccountTierFactory)
     password = factory.PostGenerationMethodCall("set_password", "password")

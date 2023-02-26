@@ -2,7 +2,9 @@ version: "3.9"
 
 services:
     imagesapi:
-        build:  ./backend
+        build:  
+            context: backend
+            dockerfile: Dockerfile.local
         container_name: imagesapi-backend
         env_file:
             - environments/.local.env
