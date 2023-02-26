@@ -1,7 +1,7 @@
 from django.test import TestCase
 from rest_framework.exceptions import ValidationError
-from users.tests.factories import AccountTierFactory
 from users.serializers import AccountTierSerializer, ImagesUserSerializer
+from users.tests.factories import AccountTierFactory
 
 
 class AccountTierSerializerTest(TestCase):
