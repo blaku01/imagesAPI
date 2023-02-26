@@ -43,7 +43,7 @@ class ImageViewSet(viewsets.ModelViewSet):
         instance_serializer = ListImageSerializer(
             instance, context={"request": request}
         )
-        return Response(instance_serializer.data)
+        return Response(instance_serializer.data, status=201)
 
     def retrieve(self, request: HttpRequest, pk=None):
         signer = Signer(sep="&signature=")
@@ -100,7 +100,7 @@ class ShowImageView(APIView):
         elif "height" in request.query_params:
             height = int(request.query_params.get("height"))
             aspect_ratio = image.size[0] / image.size[1]
-            image.thumbnail((int(aspect_ratio * height), height))
+            image = image.resize((int(aspect_ratio * height), height))
 
         image.save(response, format)
 
