@@ -17,6 +17,7 @@ class ImagesUserAdmin(UserAdmin):
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
+    #TODO: include account tier and username while registering user via admin panel
 
 admin.site.register(AccountTier)
 admin.site.register(ImagesUser, ImagesUserAdmin)

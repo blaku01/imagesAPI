@@ -11,6 +11,11 @@ ImagesAPI is a RESTful API that allows users to upload and manage their images. 
 
 # Running the Project
 
+## Deployment information
+
+### The imagesAPI project is currently deployed and can be accessed at the following URL:
+https://imagesapi-prod.onrender.com/api/
+
 ### environment variables that need to be set for the project to work properly:
 
 * `SECRET_KEY`: Django secret key
