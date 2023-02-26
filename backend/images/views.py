@@ -77,7 +77,7 @@ class ImageViewSet(viewsets.ModelViewSet):
         serialized_data.is_valid(raise_exception=True)
         return Response(serialized_data.data)
 
-
+#TODO: change ShowImageView to be a default detail of ImageViewSet, change current detail to action:generate_image_variants, url: /<image_id>/variants/
 class ShowImageView(APIView):
     def get(self, request: HttpRequest, pk=None):
         try:
@@ -100,7 +100,7 @@ class ShowImageView(APIView):
         elif "height" in request.query_params:
             height = int(request.query_params.get("height"))
             aspect_ratio = image.size[0] / image.size[1]
-            image = image.resize((int(aspect_ratio * height), height))
+            image = image.resize((int(aspect_ratio * height), height), PilImage.NEAREST)
 
         image.save(response, format)
 
