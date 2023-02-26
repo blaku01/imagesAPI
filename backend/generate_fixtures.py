@@ -1,5 +1,6 @@
+import getopt
 import os
-import getopt, sys
+import sys
 
 # set up Django environment
 import django
