@@ -23,7 +23,7 @@ class AccountTierFactory(factory.django.DjangoModelFactory):
 class ImagesUserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
-    
+
     username = factory.Sequence(lambda n: f"user{n}")
     email = factory.Sequence(lambda n: f"user{n}@example.com")
     account_tier = factory.SubFactory(AccountTierFactory)

@@ -12,3 +12,4 @@ coverage
 freezegun
 black
 isort
+dj-database-url
