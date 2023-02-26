@@ -28,11 +28,20 @@ https://imagesapi-prod.onrender.com/api/
 * `ALLOWED_HOSTS`: List of allowed hosts
 
 ### to run the project cd into project directory and use:
+
+```
+docker-compose build
+```
+
+```
+docker-compose run imagesapi python generate_fixtures.py
+```
+
 ```
 docker-compose up
 ```
 
-### Running the tests
+### to run the tests cd into project directory and use:
 
 ```
 docker-compose run imagesapi python -m coverage run --source='.' manage.py test && python -m coverage html
