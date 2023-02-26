@@ -14,3 +14,4 @@ black
 isort
 dj-database-url
 gunicorn
+whitenoise[brotli]

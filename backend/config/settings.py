@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "oauth2_provider",
     "corsheaders",
     "django_extensions",
+    "whitenoise.runserver_nostatic",
     # internal apps
     "users",
     "images",
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -159,5 +161,14 @@ if DEBUG:
     CORS_ORIGIN_ALLOW_ALL = True
 else:
     CORS_ORIGIN_ALLOW_ALL = False
-    CORS_ORIGIN_WHITELIST = os.environ.get("CORS_WHITELIST").split(",")
+    CORS_ORIGIN_WHITELIST=os.environ.get("CORS_WHITELIST").split(",")
 CORS_ALLOW_CREDENTIALS = True
+
+STATIC_URL = '/static/'
+# Following settings only make sense on production and may break development environments.
+if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
+    # in your application directory on Render.
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Turn on WhiteNoise storage backend that takes care of compressing static files
+    # and creating unique names for each version so they can safely be cached forever.
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
