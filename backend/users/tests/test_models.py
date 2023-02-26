@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
-from users.factories import AccountTierFactory
+from users.tests.factories import AccountTierFactory
 
 User = get_user_model()
 
