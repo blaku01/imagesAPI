@@ -4,8 +4,8 @@ WORKDIR /usr/src/app
 COPY . .
 RUN adduser --system --group --shell /bin/sh auser \
  && mkdir /home/auser/bin
-RUN mkdir media && chmod -R 777 /media
-RUN mkdir staticfiles && chmod -R 777 /staticfiles
+RUN mkdir -m 777 media
+RUN mkdir -m 777 staticfiles
 RUN chmod +x ./start.sh
 USER auser
 EXPOSE 8000
