@@ -1,5 +1,5 @@
 [run]
-source=users/, 
+source=users/*, images/* ,
 omit=
     venv
     manage.py
