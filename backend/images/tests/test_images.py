@@ -11,7 +11,7 @@ from images.tests.factories import ImageFactory
 from PIL import Image as PILImage
 from rest_framework import status
 from rest_framework.test import APITestCase
-from users.tests.factories import AccountTierFactory, ImagesUserFactory
+from users.factories import AccountTierFactory, ImagesUserFactory
 
 from .helpers import get_test_image_file
 

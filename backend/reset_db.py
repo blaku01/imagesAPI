@@ -5,7 +5,7 @@ import django
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 django.setup()
-from users.tests.factories import AccountTierFactory, ImagesUserFactory
+from users.factories import AccountTierFactory, ImagesUserFactory
 
 from django.core.management import call_command
 
