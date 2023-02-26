@@ -121,7 +121,7 @@ class ImageLinkRetrievalTestCase(APITestCase):
         for image in response.data:
             image_detail_url = reverse("images-detail", args=[image["id"]])
             self.assertEqual(image["url"], "http://testserver" + image_detail_url)
-            response = self.client.get(image_detail_url)
+            response = self.client.get(image_detail_url, SERVER_NAME="testserver.com")
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_generate_image_urls(self):
@@ -193,7 +193,7 @@ class ImageShowTestCase(APITestCase):
         self.original_image_url = urls["original_image"]
         self.expiring_binary_image_url = urls["expiring_binary_url"]
 
-    def test_return_images(self):
+    def test_return_thumbnail_images(self):
         for thumbnail_size, thumbnail_url in self.thumbnail_urls.items():
             thumbnail_size = thumbnail_size[5:]
             response = self.client.get(thumbnail_url, SERVER_NAME="testserver.com")
@@ -201,6 +201,8 @@ class ImageShowTestCase(APITestCase):
             image = PILImage.open(BytesIO(image_data))
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(image._size[1], int(thumbnail_size))
+
+    def test_return_original_image(self):
         response = self.client.get(
             self.original_image_url, SERVER_NAME="testserver.com"
         )
@@ -209,6 +211,17 @@ class ImageShowTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(image._size[0], self.image.file.width)
         self.assertEqual(image._size[1], self.image.file.height)
+
+    def test_return_expiring_binary_image(self):
+        response = self.client.get(
+            self.expiring_binary_image_url, SERVER_NAME="testserver.com"
+        )
+        expiring_image_data = response.content
+        image = PILImage.open(BytesIO(expiring_image_data))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(image._size[0], self.image.file.width)
+        self.assertEqual(image._size[1], self.image.file.height)
+        self.assertEqual(image.mode, "1")
 
     def test_wrong_signature(self):
         response = self.client.get(
