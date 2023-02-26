@@ -5,7 +5,7 @@ from .models import Image
 
 class ListImageSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(
-        view_name="images-detail", read_only=True
+        view_name="images-variants", read_only=True
     )
 
     class Meta:

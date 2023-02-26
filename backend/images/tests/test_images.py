@@ -119,14 +119,14 @@ class ImageLinkRetrievalTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), num_images)
         for image in response.data:
-            image_detail_url = reverse("images-detail", args=[image["id"]])
+            image_detail_url = reverse("images-variants", args=[image["id"]])
             self.assertEqual(image["url"], "http://testserver" + image_detail_url)
             response = self.client.get(image_detail_url, SERVER_NAME="testserver.com")
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_generate_image_urls(self):
         image = ImageFactory(owner=self.user)
-        url = reverse("images-detail", args=[image.id])
+        url = reverse("images-variants", args=[image.id])
         response = self.client.get(
             url + "?expiration_time=10", SERVER_NAME="testserver.com"
         )
@@ -148,7 +148,7 @@ class ImageLinkRetrievalTestCase(APITestCase):
     def test_generate_different_user_image_urls(self):
         different_user = ImagesUserFactory()
         image = ImageFactory(owner=different_user)
-        url = reverse("images-detail", args=[image.id])
+        url = reverse("images-variants", args=[image.id])
         response = self.client.get(
             url + "?expiration_time=10", SERVER_NAME="testserver.com"
         )
@@ -156,7 +156,7 @@ class ImageLinkRetrievalTestCase(APITestCase):
 
     def test_generate_image_urls_without_expiring_url(self):
         image = ImageFactory(owner=self.user)
-        url = reverse("images-detail", args=[image.id])
+        url = reverse("images-variants", args=[image.id])
         response = self.client.get(url, SERVER_NAME="testserver.com")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         expected_response_keys = ["thumbnail_urls", "original_image"]
@@ -186,7 +186,7 @@ class ImageShowTestCase(APITestCase):
             ),
         )
         urls = self.client.get(
-            reverse("images-detail", args=[self.image.id]) + "?expiration_time=10",
+            reverse("images-variants", args=[self.image.id]) + "?expiration_time=10",
             SERVER_NAME="testserver.com",
         ).data
         self.thumbnail_urls = urls["thumbnail_urls"]
