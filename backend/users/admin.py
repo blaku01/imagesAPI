@@ -32,7 +32,12 @@ class ImagesUserAdmin(UserAdmin):
         ),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
-    #TODO: include account tier and username while registering user via admin panel
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username','email', 'account_tier', 'password1', 'password2'),
+        }),
+    )
 
 
 admin.site.register(AccountTier)
