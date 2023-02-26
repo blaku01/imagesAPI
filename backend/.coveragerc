@@ -3,6 +3,7 @@ source=users/*, images/* ,
 omit=
     venv
     manage.py
+    generate_fixtures.py
     config/*
     */migrations/*
     */tests/*
