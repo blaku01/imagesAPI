@@ -155,5 +155,9 @@ else:
     MEDIA_URL = "/media/"
 
 # CORS Settings
-CORS_ORIGIN_ALLOW_ALL = True
+if DEBUG:
+    CORS_ORIGIN_ALLOW_ALL = True
+else:
+    CORS_ORIGIN_ALLOW_ALL = False
+    CORS_ORIGIN_WHITELIST = os.environ.get("CORS_WHITELIST").split(",")
 CORS_ALLOW_CREDENTIALS = True
