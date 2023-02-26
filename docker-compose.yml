@@ -2,8 +2,10 @@ version: "3.9"
 
 services:
     imagesapi:
-        build:  ./backend
-        container_name: imagesapi-backend
+        build:  
+            context: backend
+            dockerfile: Dockerfile.local
+        container_name: ../imagesapi-backend
         env_file:
             - environments/.local.env
         command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
